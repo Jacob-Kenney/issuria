@@ -24,5 +24,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   pages: {
     signIn: "/login",
+  },
+  callbacks: {
+    async jwt({ token, user, account, profile }) {
+      if (user) {
+        token.accountType = user.accountType;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.accountType = token.accountType as "bank" | "business" | "investor" | undefined;
+      }
+      return session;
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      if (credentials?.accountType) {
+        user.accountType = (credentials.accountType as unknown) as "bank" | "business" | "investor";
+      }
+      return true;
+    }
   }
 })

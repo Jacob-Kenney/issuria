@@ -20,7 +20,7 @@ export function SignIn() {
 
     const resendAction = (formData: FormData) => {
         const email = formData.get("email") as string;
-        signIn("resend", { email })
+        signIn("resend", { email, accountType: type })
     }
 
     useEffect(() => {
@@ -154,7 +154,7 @@ export function SignIn() {
                             </Button>
                             */}
                             <Button
-                            onClick={() => signIn("google", {redirectTo: "/"})}
+                            onClick={() => signIn("google", { redirectTo: "/", accountType: type })}
                             variant="outline"
                             className="w-full flex items-center justify-center"
                             >

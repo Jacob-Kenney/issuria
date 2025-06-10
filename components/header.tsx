@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
@@ -18,10 +17,12 @@ import { cn } from "@/lib/utils"
 import { BarChart3, Building2, ChevronDown, Menu, Shield, Users } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Logo } from "@/components/logo"
+import { useSession, signOut } from "next-auth/react"
 
 export function Header() {
-  const pathname = usePathname()
   const [isScrolled, setIsScrolled] = React.useState(false)
+  const { data: session } = useSession()
+  const accountType = session?.user?.accountType
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -117,12 +118,25 @@ export function Header() {
         <div className="flex items-center gap-2">
           <ModeToggle />
           <div className="hidden md:flex md:gap-2">
-            <Button variant="ghost" asChild>
-              <Link href="/login">Log in</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/get-started">Get Started</Link>
-            </Button>
+            {session ? (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+                <Button variant="ghost" onClick={() => signOut()}>
+                  Sign out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link href="/login">Log in</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/get-started">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Navigation */}
@@ -158,12 +172,25 @@ export function Header() {
                   About
                 </Link>
                 <div className="mt-4 flex flex-col gap-2">
-                  <Button variant="outline" asChild className="w-full">
-                    <Link href="/login">Log in</Link>
-                  </Button>
-                  <Button asChild className="w-full">
-                    <Link href="/get-started">Get Started</Link>
-                  </Button>
+                      {session ? (
+                    <>
+                      <Button variant="ghost" asChild>
+                        <Link href="/dashboard">Dashboard</Link>
+                      </Button>
+                      <Button variant="ghost" onClick={() => signOut()}>
+                        Sign out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button variant="ghost" asChild>
+                        <Link href="/login">Log in</Link>
+                      </Button>
+                      <Button asChild>
+                        <Link href="/get-started">Get Started</Link>
+                      </Button>
+                    </>
+                  )}
                 </div>
               </nav>
             </SheetContent>
