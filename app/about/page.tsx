@@ -55,6 +55,7 @@ export default function AboutPage() {
               </Card>
             </div>
 
+            {/*
             <div className="prose prose-slate dark:prose-invert mx-auto max-w-3xl">
               <p>
                 Founded in 2021 by a team of financial experts and technologists, BondForge emerged from a simple
@@ -83,7 +84,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Leadership Team */}
+      
       <section className="border-t border-border/40 bg-muted/30 py-20">
         <div className="container">
           <div className="mb-12 text-center">
@@ -154,6 +155,7 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             ))}
+              */}
           </div>
         </div>
       </section>

@@ -11,16 +11,11 @@ import { useTheme } from "next-themes";
 export function SignIn() {
     const { theme } = useTheme();
     const [isVisible, setIsVisible] = useState(false);
-    const [type, setType] = useState<"bank" | "business" | "investor">("bank");
-    const valuePropositionMap = {
-        bank: "Replace weeks of coordination with instant agent-led automation. Design bonds or structured financial products, and issue them directly — all from a single interface.",
-        business: "Launch investment-grade bond offerings with AI-powered structuring and compliance — no waiting on legacy processes or intermediaries.",
-        investor: "Discover and invest in bonds and structured financial products built for your risk and return targets.",
-    }
+    const valueProposition = "Design bonds or structured financial products with AI-powered automation — all from a single interface.";
 
     const resendAction = (formData: FormData) => {
         const email = formData.get("email") as string;
-        signIn("resend", { email, accountType: type })
+        signIn("resend", { email })
     }
 
     useEffect(() => {
@@ -38,14 +33,14 @@ export function SignIn() {
                 <div className={`transform transition-all duration-1000 delay-200  mt-20 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
                     <h1 className="text-6xl font-bold tracking-tight mb-2">
                         Join 
-                        <span className={`bg-gradient-to-r ${type === "bank" ? "from-emerald-300 to-emerald-800" : type === "business" ? "from-orange-300 to-orange-800" : "from-blue-300 to-blue-800"} bg-clip-text text-transparent animate-gradient-x`}>
+                        <span className="bg-gradient-to-r from-emerald-300 to-emerald-800 bg-clip-text text-transparent animate-gradient-x">
                             {" "}
                             IssurIA{" "}
                         </span>
                     </h1>
                 </div>
                 <div className={`transform transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
-                    <p className="text-md text-muted-foreground mb-8 mx-auto leading-relaxed">{valuePropositionMap[type]}</p>
+                    <p className="text-md text-muted-foreground mb-8 mx-auto leading-relaxed">{valueProposition}</p>
                 </div>
             </div>
 
@@ -57,14 +52,14 @@ export function SignIn() {
                         <div className={`transform transition-all duration-1000 delay-200  mt-20 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
                             <h1 className="text-6xl font-bold tracking-tight mb-4">
                                 Join 
-                                <span className={`bg-gradient-to-r ${type === "bank" ? "from-emerald-300 to-emerald-800" : type === "business" ? "from-orange-300 to-orange-800" : "from-blue-300 to-blue-800"} bg-clip-text text-transparent animate-gradient-x`}>
+                                <span className="bg-gradient-to-r from-emerald-300 to-emerald-800 bg-clip-text text-transparent animate-gradient-x">
                                     {" "}
                                     Issuria{" "}
                                 </span>
                             </h1>
                         </div>
                         <div className={`transform transition-all duration-1000 delay-400 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
-                            <p className="text-2xl text-muted-foreground mb-8 mx-auto leading-relaxed">{valuePropositionMap[type]}</p>
+                            <p className="text-2xl text-muted-foreground mb-8 mx-auto leading-relaxed">{valueProposition}</p>
                         </div>
                     </div>
                 </div>
@@ -75,54 +70,21 @@ export function SignIn() {
 
                     <div className="space-y-6">
                         <form action={resendAction} className="space-y-4">
-                            {/* Client type selection */}
-                            
-                            <div>
-                                <Label>
-                                    Account Type
-                                </Label>
-                            </div>
-                            <div className="flex flex-col gap-4 sm:flex-row sm:gap-2">
-                                <Button 
-                                    type="button"
-                                    onClick={() => setType("bank")}
-                                    variant={type === "bank" ? "default" : "outline"}
-                                    className={`flex-1 ${type === "bank" ? "bg-emerald-500 hover:bg-emerald-600" : "hover:bg-emerald-600"}`}
-                                >
-                                    Bank
-                                </Button>
-                                <Button 
-                                    type="button"
-                                    onClick={() => setType("business")}
-                                    variant={type === "business" ? "default" : "outline"}
-                                    className={`flex-1 ${type === "business" ? "bg-orange-500 hover:bg-orange-600" : "hover:bg-orange-600"}`}
-                                >
-                                    Business
-                                </Button>
-                                <Button 
-                                    type="button"
-                                    onClick={() => setType("investor")}
-                                    variant={type === "investor" ? "default" : "outline"}
-                                    className={`flex-1 ${type === "investor" ? "bg-blue-500 hover:bg-blue-600" : "hover:bg-blue-500"}`}
-                                >
-                                    Investor
-                                </Button>
-                            </div>
                             {/* Email Address */}
                             <div className="space-y-2">
                                 <Label htmlFor="email">
                                     Email Address
                                 </Label>
                                 <Input
-                                    className={`${type === "bank" ? "focus-visible:ring-emerald-600" : type === "business" ? "focus-visible:ring-orange-600" : "focus-visible:ring-blue-600"}`}
+                                    className="focus-visible:ring-emerald-600"
                                     id="email-resend"
                                     name="email"
                                     type="email"
                                     placeholder="your@email.com"
                                     required
                                 />
-                                </div>
-                            <Button type="submit" className={`w-full ${type === "bank" ? "bg-emerald-500 hover:bg-emerald-600" : type === "business" ? "bg-orange-500 hover:bg-orange-600" : "bg-blue-500 hover:bg-blue-600"}`}>
+                            </div>
+                            <Button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-600">
                                 Send Magic Link
                             </Button>
                         </form>
@@ -138,23 +100,8 @@ export function SignIn() {
 
                         {/* OAuth buttons */}
                         <div className="space-y-4">
-                            {/*
                             <Button
-                            onClick={() => signIn("github", {redirectTo: "/"})}
-                            variant="outline"
-                            className="w-full flex items-center justify-center"
-                            >
-                            <Image
-                                src={theme === "dark" ? "/ext/github-mark-white.svg" : "/ext/github-mark.svg"}
-                                alt="GitHub"
-                                width={24}
-                                height={24}
-                                className="mr-2" />
-                                Sign in with GitHub
-                            </Button>
-                            */}
-                            <Button
-                            onClick={() => signIn("google", { redirectTo: "/", accountType: type })}
+                            onClick={() => signIn("google", { redirectTo: "/" })}
                             variant="outline"
                             className="w-full flex items-center justify-center"
                             >
@@ -171,11 +118,11 @@ export function SignIn() {
                         {/* Legal notice */}
                         <p className="mt-8 text-center text-sm text-gray-400">
                             By signing up, you agree to our{" "}
-                            <Link href="/legal/terms" className="text-blue-400 hover:text-blue-300">
+                            <Link href="/legal/terms" className="text-emerald-400 hover:text-emerald-300">
                                 Terms of Service
                             </Link>{" "}
                             and{" "}
-                            <Link href="/legal/privacy" className="text-blue-400 hover:text-blue-300">
+                            <Link href="/legal/privacy" className="text-emerald-400 hover:text-emerald-300">
                                 Privacy Policy
                             </Link>
                         </p>

@@ -77,9 +77,11 @@ export function HeroSection() {
                 Get Started <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
+            {/*
             <Button asChild variant="outline" size="lg">
               <Link href="/book-demo">Book a Demo</Link>
             </Button>
+            */}
           </motion.div>
 
           {/* Security Badges */}

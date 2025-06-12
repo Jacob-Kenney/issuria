@@ -84,6 +84,7 @@ export function Header() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
+              {/*
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -111,6 +112,7 @@ export function Header() {
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
+              */}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -132,9 +134,11 @@ export function Header() {
                 <Button variant="ghost" asChild>
                   <Link href="/login">Log in</Link>
                 </Button>
+                {/*
                 <Button asChild>
                   <Link href="/get-started">Get Started</Link>
                 </Button>
+                */}
               </>
             )}
           </div>
@@ -158,6 +162,7 @@ export function Header() {
                     { href: "/solutions/investors", label: "For Investors" },
                   ]}
                 />
+                {/*
                 <MobileNavGroup
                   title="Products"
                   items={[
@@ -171,6 +176,7 @@ export function Header() {
                 <Link href="/about" className="flex h-10 items-center border-b border-border/40 px-4 font-medium">
                   About
                 </Link>
+                 */}
                 <div className="mt-4 flex flex-col gap-2">
                       {session ? (
                     <>
@@ -186,9 +192,11 @@ export function Header() {
                       <Button variant="ghost" asChild>
                         <Link href="/login">Log in</Link>
                       </Button>
+                      {/* 
                       <Button asChild>
                         <Link href="/get-started">Get Started</Link>
                       </Button>
+                      */}
                     </>
                   )}
                 </div>
