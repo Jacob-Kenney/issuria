@@ -14,6 +14,9 @@ importers:
       '@auth/supabase-adapter':
         specifier: ^1.9.1
         version: 1.9.1(@supabase/supabase-js@2.50.0)
+      '@auth/upstash-redis-adapter':
+        specifier: ^2.9.1
+        version: 2.9.1(@upstash/redis@1.35.0)
       '@emotion/is-prop-valid':
         specifier: latest
         version: 1.3.1
@@ -149,6 +152,9 @@ importers:
       '@tiptap/starter-kit':
         specifier: ^2.14.0
         version: 2.14.0
+      '@upstash/redis':
+        specifier: ^1.35.0
+        version: 1.35.0
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.21(postcss@8.5.5)
@@ -272,6 +278,11 @@ packages:
     resolution: {integrity: sha512-T/sMidPqyWo68EbzTQXaD1MpI6486NBkVYnt9/WQJ5CEpU4uTLZltq3Hzs4FlBge4tKGSJzig8PN/WSP1pU+nw==}
     peerDependencies:
       '@supabase/supabase-js': ^2.43.1
+
+  '@auth/upstash-redis-adapter@2.9.1':
+    resolution: {integrity: sha512-ahiA54/NLBq2uPtSa/CNdyTwVZyPKUSdFFd5av60h1bp6HZ6FTsS6VUHMxBJlwPu8AMOXZj4V7AaSV4VxS3hhw==}
+    peerDependencies:
+      '@upstash/redis': ^1.0.1
 
   '@babel/runtime@7.27.6':
     resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
@@ -1568,6 +1579,9 @@ packages:
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
+  '@upstash/redis@1.35.0':
+    resolution: {integrity: sha512-WUm0Jz1xN4DBDGeJIi2Y0kVsolWRB2tsVds4SExaiLg4wBdHFMB+8IfZtBWr+BP0FvhuBr5G1/VLrJ9xzIWHsg==}
+
   '@xmldom/xmldom@0.8.10':
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
@@ -2711,6 +2725,9 @@ packages:
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
+  uncrypto@0.1.3:
+    resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
+
   underscore@1.13.7:
     resolution: {integrity: sha512-GMXzWtsc57XAtguZgaQViUOzs0KTkk8ojr3/xAxXLITqf/3EMwxC0inyETfDFjH/Krbhuep0HNbbjI9i/q3F3g==}
 
@@ -2841,6 +2858,15 @@ snapshots:
     dependencies:
       '@auth/core': 0.39.1
       '@supabase/supabase-js': 2.50.0
+    transitivePeerDependencies:
+      - '@simplewebauthn/browser'
+      - '@simplewebauthn/server'
+      - nodemailer
+
+  '@auth/upstash-redis-adapter@2.9.1(@upstash/redis@1.35.0)':
+    dependencies:
+      '@auth/core': 0.39.1
+      '@upstash/redis': 1.35.0
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
       - '@simplewebauthn/server'
@@ -4133,6 +4159,10 @@ snapshots:
     dependencies:
       '@types/node': 22.15.31
 
+  '@upstash/redis@1.35.0':
+    dependencies:
+      uncrypto: 0.1.3
+
   '@xmldom/xmldom@0.8.10': {}
 
   ansi-regex@5.0.1: {}
@@ -5317,6 +5347,8 @@ snapshots:
   typescript@5.8.3: {}
 
   uc.micro@2.1.0: {}
+
+  uncrypto@0.1.3: {}
 
   underscore@1.13.7: {}
 
