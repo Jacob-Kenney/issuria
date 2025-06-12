@@ -169,7 +169,7 @@ administrative or
 operating costs
 5. How long should I hold it and can I take money out early?
 Recommended holding period: {{RECOMMENDED_HOLDING_PERIOD}} years
-The product aims to provide you with the return described under “1. What is this product?” above. However, this only applies if the product is held to maturity. It is therefore recommended that the product is held until {{MATURITY_DATE}}
+The product aims to provide you with the return described under "1. What is this product?" above. However, this only applies if the product is held to maturity. It is therefore recommended that the product is held until {{MATURITY_DATE}}
 The product does not guarantee the possibility to disinvest other than by selling the product either (1) through the exchange (if the product is exchange traded) or (2) off-exchange, where an offer for such product exists. Save as otherwise disclosed in exit costs (see section "4. What are the costs?" above), no fees or penalties will be charged by the issuer for any such transaction, however an execution fee might be chargeable by your broker if applicable. By selling the product before its maturity, you may receive back less than you would have received if you had kept the product until maturity.
 In volatile or unusual market conditions, or in the event of technical faults/disruptions, the purchase and/or sale of the product can be temporarily hindered and/or suspended and may not be possible at all.
 6. How can I complain?
@@ -230,8 +230,31 @@ product at maturity (market risk);",
 at a low level, and poor market conditions are very unlikely to impact our capacity to pay you.",
     "CAPITAL_PROTECTION_ENTITLEMENT": "You are entitled to receive back at least 90.00% of your capital.",
     "RECOMMENDED_HOLDING_PERIOD": "3",
-    "1_YEAR_STRESS_RESULT": 
-
+    "1_YEAR_STRESS_RESULT": "EUR 8,618",
+    "1_YEAR_STRESS_RETURN": "-13.74%",
+    "RECOMMENDED_YEAR_STRESS_RESULT": "EUR 9,000",
+    "RECOMMENDED_YEAR_STRESS_RETURN": "-3.45%",
+    "1_YEAR_UNFAVOURABLE_RESULT": "EUR 9,080",
+    "1_YEAR_UNFAVOURABLE_RETURN": "-9.16%",
+    "RECOMMENDED_YEAR_UNFAVOURABLE_RESULT": "EUR 9,000"
+    "RECOMMENDED_YEAR_UNFAVOURABLE_RETURN": "-3.45%"
+    "1_YEAR_MODERATE_RESULT" : "EUR 10,017",
+    "1_YEAR_MODERATE_RETURN" : "0.17%",
+    "RECOMMENDED_YEAR_MODERATE_RESULT": "EUR 10,017",
+    "RECOMMENDED_YEAR_MODERATE_RETRUN": "0.21%",
+    "1_YEAR_FAVOURABLE_RESULT": "EUR 11,073",
+    "1_YEAR_FAVOURABLE_RETURN": "10.67%",
+    "RECOMMENDED_YEAR_FAVOURABLE_RESULT": "EUR 12,500",
+    "RECOMMENDED_YEAR_FAVOURABLE_RETURN": "7.72%",
+    "1_YEAR_COSTS_RESULT": "EUR 625",
+    "1_YEAR_COSTS_RETURN": "6.59%",
+    "RECOMMENDED_YEAR_COSTS_RESULT": "EUR 575",
+    "RECOMMENDED_YEAR_COST_RETURN": "2.00% each year",
+    "ENTRY_COST_PERCENT": "5.75%",
+    "1_YEAR_ENTRY_COST_AMOUNT": "EUR 575",
+    "EXIT_COST_PERCENT": "0.50%",
+    "1_YEAR_EXIT_COST_AMOUNT": "EUR 50",
+    "OTHER_FEES_PERECNT": "0.00%",
 }
 
 ## OBJECTIVE
@@ -263,8 +286,14 @@ export async function POST(request: Request) {
       max_tokens: 2048,
       messages: [{ role: "user", content: input }],
     });
+    console.log(msg) // Testing
 
-    return NextResponse.json({ response: msg.content });
+    const content = msg.content[0];
+    if (content.type !== 'text') {
+        throw new Error('Unexpected content type');
+    }
+
+    return NextResponse.json({ response: content.text });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json(

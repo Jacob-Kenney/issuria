@@ -44,21 +44,44 @@ export default function Page({ params, }: { params: { prompt: string}}) {
     };
 
     useEffect(() => {
-        // Process prompt to make JSON response
-        const response = {}
-
-        // Process JSON to make template
         const generateDocument = async () => {
             setIsLoading(true);
             setError(null);
+            
+            let jsonResponse: any;
+            
+            // Process prompt to make JSON response
+            try {
+                const response = await fetch('/api/content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ input: prompt }),
+                });
 
+                if (!response.ok) {
+                    throw new Error('Failed to fetch content');
+                }
+
+                const data = await response.json();
+                // Clean up the response by removing markdown code block markers
+                const cleanedResponse = data.response.replace(/```json\n|\n```/g, '');
+                jsonResponse = JSON.parse(cleanedResponse);
+            } catch(error) {
+                console.error('Error generating LLM response:', error);
+                setError(error instanceof Error ? error.message : 'An error occurred');
+                return; // Exit early if we couldn't get the JSON response
+            }
+            
+            // Generate document from template
             try {
                 const apiResponse = await fetch('/api/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(response)
+                    body: JSON.stringify(jsonResponse)
                 });
 
                 if (!apiResponse.ok) {
